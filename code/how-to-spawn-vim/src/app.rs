@@ -94,6 +94,7 @@ impl App {
         }
       }
 
+      // ANCHOR: run__action_EditFile
       while let Ok(action) = action_rx.try_recv() {
         if action != Action::Tick && action != Action::Render {
           log::debug!("{action:?}");
@@ -126,6 +127,7 @@ impl App {
               }
             })?;
           },
+          // Add this handler
           Action::EditFile => {
             tui.exit()?;
             let status = std::process::Command::new("vim").arg("/tmp/a.txt").status()?;
@@ -139,6 +141,7 @@ impl App {
           },
           _ => {},
         }
+        // ANCHOR_END: run__action_EditFile
         for component in self.components.iter_mut() {
           if let Some(action) = component.update(action.clone())? {
             action_tx.send(action)?

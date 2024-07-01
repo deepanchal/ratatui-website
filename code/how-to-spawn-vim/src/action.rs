@@ -6,6 +6,7 @@ use serde::{
 };
 use strum::Display;
 
+// ANCHOR: action
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Display, Deserialize)]
 pub enum Action {
   Tick,
@@ -19,3 +20,4 @@ pub enum Action {
   Help,
   EditFile,
 }
+// ANCHOR_END: action
