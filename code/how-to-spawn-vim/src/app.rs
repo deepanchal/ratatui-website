@@ -126,6 +126,17 @@ impl App {
               }
             })?;
           },
+          Action::EditFile => {
+            tui.exit()?;
+            let status = std::process::Command::new("vim").arg("/tmp/a.txt").status()?;
+            if status.success() {
+              log::info!("Successfully launched vim");
+            } else {
+              log::error!("Failed to launch vim");
+            }
+            tui = tui::Tui::new()?.tick_rate(self.tick_rate).frame_rate(self.frame_rate);
+            tui.enter()?;
+          },
           _ => {},
         }
         for component in self.components.iter_mut() {

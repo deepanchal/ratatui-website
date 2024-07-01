@@ -35,6 +35,13 @@ impl Component for Home {
     Ok(())
   }
 
+  fn handle_key_events(&mut self, key: KeyEvent) -> Result<Option<Action>> {
+    match key.code {
+      KeyCode::Char('v') => Ok(Some(Action::EditFile)),
+      _ => Ok(None),
+    }
+  }
+
   fn update(&mut self, action: Action) -> Result<Option<Action>> {
     match action {
       Action::Tick => {
@@ -45,7 +52,7 @@ impl Component for Home {
   }
 
   fn draw(&mut self, f: &mut Frame<'_>, area: Rect) -> Result<()> {
-    f.render_widget(Paragraph::new("hello world"), area);
+    f.render_widget(Paragraph::new("Hello! Press 'v' to launch vim"), area);
     Ok(())
   }
 }
